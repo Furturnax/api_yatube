@@ -3,6 +3,8 @@ from django.db import models
 
 User = get_user_model()
 
+MAX_TEXT = 30
+
 
 class Group(models.Model):
     title = models.CharField(max_length=200)
@@ -30,7 +32,8 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return self.text
+        return (f'{self.author.username} - {self.pub_date} '
+                f'{self.group.title} - {self.text[:MAX_TEXT]}')
 
 
 class Comment(models.Model):
